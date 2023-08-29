@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # ArteConecta Chile Administrador
+=======
+# ArteConecta Chile Administración
+>>>>>>> 8df230f41f30a5fff8120efb9bbf37c8d7891708
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.0.
 
