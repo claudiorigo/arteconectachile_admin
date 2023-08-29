@@ -2,60 +2,57 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../auth';
-import { URL_SERVICIOS } from 'src/app/config/config';
 import { finalize } from 'rxjs/operators';
+import { URL_SERVICIOS } from 'src/app/config/config';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UsersService {
+export class CategorieService {
 
   isLoading$: Observable<boolean>;
   isLoadingSubject: BehaviorSubject<boolean>;
   
-  constructor(private http: HttpClient,public authservice: AuthService,) {
+  constructor(private http: HttpClient, public authservice: AuthService,) {
     this.isLoadingSubject = new BehaviorSubject<boolean>(false);
     this.isLoading$ = this.isLoadingSubject.asObservable();
   }
 
-  allUsers(page=1, state='', search=''){
+  allCategories(page=1, search=''){
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({'Authorization': 'Bearer' + this.authservice.token});
-    let LINK = '';
-    if (state) {
-      LINK = LINK + '&state=' + state;
-    }
+    let LINK = '';    
     if (search) {
       LINK = LINK + '&search=' + search;
     }
-    let URL = URL_SERVICIOS + '/users/admin/all?page=' + page + LINK;
+    let URL = URL_SERVICIOS + '/categorias/listar?page=' + page + LINK;
     return this.http.get(URL, {headers: headers}).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );
   }
 
-  register(data:any){
+  crearCategoria(data:any){
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({'Authorization': 'Bearer' + this.authservice.token});
-    let URL = URL_SERVICIOS + '/users/admin/register';
+    let URL = URL_SERVICIOS + '/categorias/crear';
+    return this.http.post(URL, data, {headers: headers}).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
+  
+  updateCategoria(categorie_id:any, data:any){
+    this.isLoadingSubject.next(true);
+    let headers = new HttpHeaders({'Authorization': 'Bearer' + this.authservice.token});
+    let URL = URL_SERVICIOS + '/categorias/update/' + categorie_id;
     return this.http.post(URL, data, {headers: headers}).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );
   }
 
-  update(user_id, data){
+  deleteCategoria(categorie_id:any){
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({'Authorization': 'Bearer' + this.authservice.token});
-    let URL = URL_SERVICIOS + '/users/admin/update/' + user_id;
-    return this.http.put(URL, data, {headers: headers}).pipe(
-      finalize(() => this.isLoadingSubject.next(false))
-    );
-  }
-
-  deleteUser(user_id){
-    this.isLoadingSubject.next(true);
-    let headers = new HttpHeaders({'Authorization': 'Bearer' + this.authservice.token});
-    let URL = URL_SERVICIOS + '/users/admin/delete/' + user_id;
+    let URL = URL_SERVICIOS + '/categorias/delete/' + categorie_id;
     return this.http.delete(URL, {headers: headers}).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );

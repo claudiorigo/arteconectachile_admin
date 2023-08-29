@@ -1,1 +1,177 @@
-<p>edit-users works!</p>
+<ng-container *ngIf="isLoading">
+  <div class="progress progress-modal">
+    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+  </div>
+</ng-container>
+<div class="modal-content">
+  <div class="modal-header">
+    <div class="modal-title h4" id="example-modal-sizes-title-lg">
+      <i class="icon-2x text-dark-50 flaticon-user-add mx-2"></i> Editar Usuario: {{ user_selected.name }} {{ user_selected.surname }}
+    </div>
+  </div>
+  <div class="overlay overlay-block cursor-default modal-body">
+    <ng-container *ngIf="isLoading$ | async">
+      <div class="overlay-layer bg-transparent">
+        <div class="spinner spinner-lg spinner-success"></div>
+      </div>
+    </ng-container>
+    <form action="#" class="form form-label-right" [formGroup]="formGroup">
+      <div class="form-group row">            
+        <div class="col-lg-6">
+          <!-- NOMBRES -->
+          <label class="form-label">Nombres:</label>
+          <input 
+            type="text"
+            class="form-control form-control-solid form-control-lg h-auto px-6 rounded-lg"
+            name="name"
+            placeholder="Ingrese Nombre"
+            autocomplete="off"
+            [class.is-invalid]="isControlInvalid('name')"
+            [class.is-valid]="isControlValid('name')"
+            formControlName="name">
+          <div class="valid-feedback" *ngIf="isControlValid('name')">
+            El nombre se ingresó correctamente
+          </div>
+          <div class="invalid-feedback" *ngIf="controlHasError('required', 'name')">
+            Se requiere el nombre completo
+          </div>
+          <div class="invalid-feedback" *ngIf="controlHasError('minlength', 'name')">
+            El nombre debe tener al menos 3 letras
+          </div>
+          <div class="invalid-feedback" *ngIf="controlHasError('maxlength', 'name')">
+            El nombre debe tener un máximo de 100 letras
+          </div>
+        </div>        
+        <div class="col-lg-6">
+          <!-- APELLIDOS -->
+          <label class="form-label">Apellidos:</label>
+          <input 
+            type="text"
+            class="form-control form-control-solid form-control-lg h-auto px-6 rounded-lg"
+            name="surname"
+            placeholder="Ingrese Apellido"
+            autocomplete="off"
+            [class.is-invalid]="isControlInvalid('surname')"
+            [class.is-valid]="isControlValid('surname')"
+            formControlName="surname">
+          <div class="valid-feedback" *ngIf="isControlValid('surname')">
+            El apellido se ingresó correctamente
+          </div>
+          <div class="invalid-feedback" *ngIf="controlHasError('required', 'surname')">
+            Se requiere el apellido
+          </div>
+          <div class="invalid-feedback" *ngIf="controlHasError('minlength', 'surname')">
+            El apellido debe tener al menos 3 letras
+          </div>
+          <div class="invalid-feedback" *ngIf="controlHasError('maxlength', 'surname')">
+            El apellido debe tener un máximo de 100 letras
+          </div>                
+        </div>            
+      </div>
+      <div class="form-group row justify-content-center">          
+        <div class="col-lg-12">
+          <!-- CORREO -->
+          <label class="form-label">Correo Electrónico:</label>
+          <input 
+            type="email"
+            class="form-control form-control-solid form-control-lg h-auto px-6 rounded-lg"
+            name="email"
+            placeholder="Ingrese correo"
+            autocomplete="off"
+            [class.is-invalid]="isControlInvalid('email')"
+            [class.is-valid]="isControlValid('email')"
+            formControlName="email">
+          <div class="valid-feedback" *ngIf="isControlValid('email')">
+            El correo electrónico se ingresó correctamente
+          </div>
+          <div class="invalid-feedback" *ngIf="controlHasError('required', 'email')">
+            Se requiere el correo electrónico
+          </div>
+          <div class="invalid-feedback" *ngIf="controlHasError('minlength', 'email')">
+            El correo electrónico debe tener al menos 3 letras
+          </div>
+          <div class="invalid-feedback" *ngIf="controlHasError('maxlength', 'email')">
+            El correo electrónico debe tener un máximo de 200 letras
+          </div>              
+        </div>          
+        <div class="col-lg-6 mt-6">
+          <!-- ROL -->
+          <label class="form-label">Seleccionar Rol:</label>
+          <select name="role_id" formControlName="role_id" id="" class="form-control form-control-solid form-control-lg h-auto px-6 rounded-lg">
+            <option value="">Ninguno</option>
+            <option value="1">Administrador</option>
+          </select>
+        </div>          
+        <div class="col-lg-6 mt-6">
+          <!-- ESTADO -->
+          <label class="form-label">Seleccionar Estado: </label>
+          <select name="state" formControlName="state" class="form-control form-control-solid form-control-lg h-auto px-6 rounded-lg">
+            <option value="">Todos</option>
+            <option value="1">Activo</option>
+            <option value="2">Desactivo</option>
+          </select>            
+        </div>
+      </div>
+      <div class="form-group row">        
+        <div class="col-lg-6">
+          <!-- CONTRASEÑA -->
+          <label class="form-label">Contraseña:</label>
+          <input 
+            type="password"
+            class="form-control form-control-solid form-control-lg h-auto px-6 rounded-lg"
+            name="password"
+            placeholder="Ingrese Contraseña"
+            autocomplete="off"              
+            [class.is-invalid]="isControlInvalid('password')"
+            [class.is-valid]="isControlValid('password')"
+            formControlName="password">
+          <div class="valid-feedback" *ngIf="isControlValid('password')">
+            La contraseña se ingresó correctamente
+          </div>
+          <div class="invalid-feedback" *ngIf="controlHasError('required', 'password')">
+            Se requiere la contraseña completo
+          </div>
+          <div class="invalid-feedback" *ngIf="controlHasError('minlength', 'password')">
+            La contraseña debe tener al menos 3 letras
+          </div>
+          <div class="invalid-feedback" *ngIf="controlHasError('maxlength', 'password')">
+            La contraseña debe tener un máximo de 100 letras
+          </div>            
+        </div>        
+        <div class="col-lg-6">
+          <!-- CONFIRMAR CONTRASEÑA -->
+          <label class="form-label">Confirmar Contraseña:</label>
+          <input 
+            type="password"
+            class="form-control form-control-solid form-control-lg h-auto px-6 rounded-lg"
+            name="password_confirmation"
+            placeholder="Confirmar Contaseñana"
+            autocomplete="off"
+            [class.is-invalid]="isControlInvalid('password_confirmation')"
+            [class.is-valid]="isControlValid('password_confirmation')"
+            formControlName="password_confirmation">
+          <div class="valid-feedback" *ngIf="isControlValid('password_confirmation')">
+            La contraseña se ingresó correctamente
+          </div>
+          <div class="invalid-feedback" *ngIf="controlHasError('required', 'password_confirmation')">
+            Se requiere confirmar la contraseña
+          </div>
+          <div class="invalid-feedback" *ngIf="controlHasError('minlength', 'password_confirmation')">
+            La contraseña debe tener al menos 3 letras
+          </div>
+          <div class="invalid-feedback" *ngIf="controlHasError('maxlength', 'password_confirmation')">
+            La contraseña debe tener un máximo de 100 letras
+          </div>              
+        </div>            
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary btn-elevate mr-2" (click)="update()" [disabled]="formGroup.invalid">
+      Actualizar
+    </button>
+    <button type="button" class="btn btn-light btn-elevate mr-2" (click)="modal.dismiss()">
+      Cancel
+    </button>
+  </div>
+</div>
