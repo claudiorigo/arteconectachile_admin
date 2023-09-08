@@ -1,0 +1,230 @@
+<div class="card card-custom gutter-b">
+    <div class="card-header">
+      <div class="card-title">
+        <h3 class="card-label">
+          <i class="icon-2x text-dark-50 flaticon-bag mx-2"></i> Agregar Producto
+        </h3>
+      </div>      
+    </div>
+    <div class="card-body">
+
+        <!-- <ng-container *ngIf="isLoading$ | async">
+            <span class="spinner spinner-primary ml-5"></span>
+        </ng-container> --> 
+
+        <ng-container *ngIf="isLoading$ | async">
+            <div class="overlay-layer bg-transparent">
+                <div class="spinner spinner-lg spinner-success"></div>
+            </div>
+        </ng-container>
+
+        <div class="form-group row">
+            <!-- NOMBRE -->
+            <div class="col-lg-5 mb-6">
+                <label class="form-label">Nombre de Producto: <span class="text-danger"> *</span></label>
+                <input  type="text"
+                    class="form-control form-control-solid form-control-lg h-auto px-6 rounded-lg"
+                    name="name"
+                    placeholder="Ingrese Nombre de Producto"
+                    autocomplete="off"
+                    [(ngModel)]="name">                               
+            </div>
+            <!-- SKU -->
+            <div class="col-lg-3 mb-6">
+                <label class="form-label">SKU del Producto: <span class="text-danger"> *</span></label>
+                <input  type="text"
+                    class="form-control form-control-solid form-control-lg h-auto px-6 rounded-lg"
+                    name="sku"
+                    placeholder="Ingrese Nombre de Producto"
+                    autocomplete="off"
+                    [(ngModel)]="sku">                               
+            </div>
+            <!-- CATEGORÍA -->
+            <div class="col-lg-4 mb-6">
+                <label class="form-label">Categoría: <span class="text-danger"> *</span></label>
+                <select name="categorie_id" [(ngModel)]="categorie_id" class="form-control form-control-solid form-control-lg h-auto px-6 rounded-lg">
+                    <option value="">Ninguno</option>
+                    <ng-container *ngFor="let categoria of categorias">
+                        <option [value]="categoria.id">{{ categoria.name }}</option>
+                    </ng-container>
+                    
+                </select>
+            </div>                          
+        </div> 
+
+
+        <div class="form-group row">            
+            <!-- PRECIO PESOS -->
+            <div class="col-lg-3">
+                <label class="form-label">Peso Chileno: <span class="text-danger"> *</span></label>
+                <input  type="text"
+                    class="form-control form-control-solid form-control-lg h-auto px-6 rounded-lg"
+                    name="price_pesos"
+                    placeholder="2.000"
+                    autocomplete="off"
+                    [(ngModel)]="price_pesos">                               
+            </div>
+            <!-- PRECIO DOLARS -->
+            <div class="col-lg-3">
+                <label class="form-label">USD: <span class="text-danger"> *</span></label>
+                <input  type="text"
+                    class="form-control form-control-solid form-control-lg h-auto px-6 rounded-lg"
+                    name="price_usd"
+                    placeholder="$200"
+                    autocomplete="off"
+                    [(ngModel)]="price_usd">                               
+            </div>            
+            <!-- IMAGEN -->
+            <div class="col-6">
+                <div class="row">
+                    <!-- INPUT IMAGEN -->
+                    <div class="col-12">
+                        <label class="form-label">Subir imagen Portada: <span class="text-danger"> *</span></label>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="customFile"  accept=".jpeg, .bmp, .jpg, .png, .gif, .webp"  (change)="processFile($event)">
+                            <label class="custom-file-label" for="customFile">Elija Imagen</label>
+                        </div>
+                    </div>
+                    <!-- PREVIEW -->
+                    <div class="col-12" *ngIf="image_preview">
+                        <img [src]="image_preview" class="w-100" alt="Preview Portada">
+                        <span class="form-text text-muted mt-4">Nombre Imagen: foto_perfil.jpg</span>
+                        <span class="form-text text-muted">Peso: 2 MB</span>
+                        <span class="form-text text-muted">Formato: JPG</span>                    
+                    </div> 
+                </div>
+            </div>            
+        </div>
+
+        <div class="form-group row">
+
+            <div class="col-6">
+                <label class="form-label">RESUMEN DEL PRODUCTO: *</label>
+                <textarea class="form-control" name="description_short" [(ngModel)]="description_short" placeholder="" rows="4"></textarea>
+            </div>
+
+            <div class="col-6">
+                <label class="form-label">Descripción: *</label>
+                <editor
+                    [(ngModel)]="description"
+                    [init]="{
+                    height: 250,
+                    menubar: true,
+                    language: 'es',
+                    plugins: [
+                        'advlist autolink lists link image charmap print preview anchor',
+                        'searchreplace visualblocks code fullscreen',
+                        'insertdatetime media table paste code help wordcount'
+                    ],
+                    toolbar:
+                        'undo redo | formatselect | bold italic backcolor | \
+                        alignleft aligncenter alignright alignjustify | \
+                        bullist numlist outdent indent | removeformat | help'
+                    }"
+                ></editor>
+            </div>
+        </div>
+
+
+    
+
+        <div class="form-group row">
+            <!-- TAGS -->
+            <div class="col-6">
+                <label class="form-label">Etiqueta: <span class="text-danger"> *</span></label>
+
+                <div class="d-flex">
+
+                    <input  type="text"
+                        class="form-control form-control-solid form-control-lg h-auto px-6 rounded-lg"
+                        name="tags"
+                        placeholder="Ingrese Tags"
+                        autocomplete="off"
+                        [(ngModel)]="text">
+                    <button class="btn btn-sm btn-primary" (click)="addTags()"> + </button>
+
+                </div>
+
+
+
+                <div class="table-responsive">
+                    <table class="table table-head-custom table-vertical-center" id="kt_advance_table_widget_1">
+                        <thead>
+                            <tr class="text-left">
+                                <th class="pr-0">Palabras Claves</th>                                    
+                                <th class="pr-0 text-right">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let tag of tags; let i = index">
+                                <td>{{ tag }}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-danger" (click)="removeTags(i)"> - </button>
+                                </td>
+                            </tr>                                
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+            </div>
+
+            <div class="col-6">
+
+
+
+                
+                <label class="form-label">Subir imágenes: <span class="text-danger"> *</span></label>
+                <div class="d-flex">
+                
+                    <div class="custom-file">
+                        <div class="d-flex">
+                            <input type="file" class="custom-file-input" id="customFiles"  accept=".jpeg, .bmp, .jpg, .png, .gif, .webp"  (change)="addFiles($event)">
+                            <label class="custom-file-label" for="customFiles">Elija Imagen</label>
+                        </div>                        
+                    </div>
+                    <button class="btn btn-sm btn-primary" (click)="addImages()"> + </button>
+
+                </div>
+
+                <span *ngIf="images_files">IMAGEN: {{ images_files.name }}</span>
+                
+
+
+                <div class="table-responsive">
+                    <table class="table table-head-custom table-vertical-center" id="kt_advance_table_widget_1">
+                        <thead>
+                            <tr class="text-left">
+                                <th class="pr-0">Imagen</th>
+                                <th class="pr-0">Nombre</th>
+                                <th class="pr-0 text-right">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let image_file_array of images_files_array; let i = index">
+                                <td>
+                                    <img [src]="image_file_array.show" class="w-25" alt="Previews">
+                                </td>
+                                <td>{{ image_file_array.file.name }}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-danger" (click)="removeImages(i)"> - </button>
+                                </td>
+                            </tr>                                
+                        </tbody>
+                    </table>
+                </div>
+
+
+                
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <div class="col-6">
+                <button class="btn btn-md btn-primary" (click)="createProduct()">Crear Producto</button>
+            </div>
+        </div>
+    </div>
+</div>

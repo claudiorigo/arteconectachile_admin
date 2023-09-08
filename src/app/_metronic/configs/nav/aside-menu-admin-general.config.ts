@@ -43,5 +43,41 @@ export const AsideMenuAdminGeneral = {
           }
         ]
       },
+      //      
+      {
+        title: 'Productos',
+        root: true,
+        name: "productos",
+        bullet: 'dot',
+        icon: 'flaticon2-user-outline-symbol',
+        svg: './assets/media/svg/icons/Clothes/Briefcase.svg',
+        page: '/productos',
+        submenu: [
+          {
+            title: 'Gestión Producto',
+            page: '/productos/add-product'
+          },
+          {
+            title: 'Listar Productos',
+            page: '/productos/list-product'
+          }
+        ]
+      },
+      //      
+      {
+        title: 'Sliders',
+        root: true,
+        name: "sliders",
+        bullet: 'dot',
+        icon: 'flaticon2-user-outline-symbol',
+        svg: './assets/media/svg/icons/Devices/Display2.svg',
+        page: '/sliders',
+        submenu: [
+          {
+            title: 'Listar Sliders',
+            page: '/sliders/listar'
+          }
+        ]
+      },
     ]
 }

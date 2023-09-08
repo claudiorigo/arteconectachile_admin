@@ -1,0 +1,46 @@
+<div class="modal-content">
+    <div class="modal-header">
+      <div class="modal-title h4" id="example-modal-sizes-title-lg">
+        <i class="icon-2x text-dark-50 flaticon-file-1 mx-2"></i> Editar Tamaño {{ sub_inventario.product_color.name }}
+      </div>
+    </div>
+    <div class="overlay overlay-block cursor-default modal-body">
+        <ng-container *ngIf="isLoading$ | async">
+            <div class="overlay-layer bg-transparent">
+                <div class="spinner spinner-lg spinner-success"></div>
+            </div>
+        </ng-container>
+        <form action="#" class="form form-label-right" >
+            <div class="form-group row">
+                <div class="col-6">
+                    <label class="form-label">Colores: <span class="text-danger"> *</span></label>
+                    <select name="product_color_id" [(ngModel)]="product_color_id" class="form-control form-control-solid form-control-lg h-auto px-6 rounded-lg">
+                        <option value="">Ninguno</option>
+                        <ng-container *ngFor="let color of products_colors">                                                
+                            <option [value]="color.id">{{ color.name }}</option>
+                        </ng-container>
+                    </select>
+                </div>
+                <!-- STOCK -->
+                <div class="col-6">
+                    <label class="form-label">Stock: <span class="text-danger"> *</span></label>
+                    <input  type="number"
+                        class="form-control form-control-solid form-control-lg h-auto px-6 rounded-lg"
+                        name="stock"
+                        placeholder="Ingrese Stock"                        
+                        autocomplete="off"
+                        [(ngModel)]="stock">                               
+                </div>                
+                                
+            </div>            
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary btn-elevate mr-2" (click)="save()">
+            Actualizar
+        </button>
+        <button type="button" class="btn btn-light btn-elevate mr-2" (click)="modal.dismiss()">
+            Cancel
+        </button>
+    </div>
+</div>
