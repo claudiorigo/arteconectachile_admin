@@ -6,7 +6,7 @@
 <div class="modal-content">
     <div class="modal-header">
         <div class="modal-title h4" id="example-modal-sizes-title-lg">
-            <i class="icon-2x text-dark-50 flaticon-delete mx-2"></i> Eliminar Slider: {{ slider_selected.name }}
+            <i class="icon-2x text-dark-50 fas fa-user-times mx-2"></i> Eliminar Cupón: {{ cupon_selected.code }}
         </div>
     </div>
     <div class="overlay overlay-block cursor-default modal-body">
@@ -15,14 +15,9 @@
                 <div class="spinner spinner-lg spinner-success"></div>
             </div>
         </ng-container>
-        <div class="row align-items-center">
-            <div class="col-2">
-                <div class="symbol symbol-50 flex-shrink-0 mr-4">                    
-                    <div class="symbol-label" [ngStyle]="{'background-image': 'url('+ URL_BACKEND + 'storage/' + slider_selected.imagen +') '}"></div>
-                </div>
-            </div>            
-            <div class="col-10">
-                <span>¿Esta seguro de eliminar el slider: <b>{{ slider_selected.name }}</b>?</span>
+        <div class="row align-items-center">                      
+            <div class="col-12">
+                <span>¿Esta seguro de eliminar el cupón: <b>{{ cupon_selected.code }}</b>?</span>
             </div>
         </div>
     </div>

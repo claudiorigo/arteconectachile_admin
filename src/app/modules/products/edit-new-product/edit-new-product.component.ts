@@ -55,7 +55,7 @@ export class EditNewProductComponent implements OnInit {
   ngOnInit(): void {    
     this.isLoading$ = this._productService.isLoading$;
 
-    this.activatedRoute.params.subscribe((resp:any) => {      
+    this.activatedRoute.params.subscribe((resp:any) => {
       this.product_id = resp.id || '';
     });
 

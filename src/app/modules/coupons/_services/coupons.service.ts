@@ -8,7 +8,7 @@ import { URL_SERVICIOS } from 'src/app/config/config';
 @Injectable({
   providedIn: 'root'
 })
-export class SlidersService {
+export class CouponsService {
 
   isLoading$: Observable<boolean>;
   isLoadingSubject: BehaviorSubject<boolean>;
@@ -17,39 +17,60 @@ export class SlidersService {
     this.isLoadingSubject = new BehaviorSubject<boolean>(false);
     this.isLoading$ = this.isLoadingSubject.asObservable();
   }
-
-  allSliders(){
+  
+  allCoupons(page=1, search=''){
     this.isLoadingSubject.next(true);
-    let headers = new HttpHeaders({'Authorization': 'Bearer' + this.authservice.token});    
-    let URL = URL_SERVICIOS + '/sliders/listar';
+    let headers = new HttpHeaders({'Authorization': 'Bearer' + this.authservice.token});
+    let LINK = '';
+    if (search) {
+      LINK = '&search=' + search;
+    }
+    let URL = URL_SERVICIOS + '/cupones/listar?page=' + page + LINK;
     return this.http.get(URL, {headers: headers}).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );
   }
-
-  crearSlider(data:any){
+  allCategoriesProducts(){
+    this.isLoadingSubject.next(true);
+    let headers = new HttpHeaders({'Authorization': 'Bearer' + this.authservice.token});    
+    let URL = URL_SERVICIOS + '/cupones/listar-categorias-productos';
+    return this.http.get(URL, {headers: headers}).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
+  
+  createCoupon(data:any){
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({'Authorization': 'Bearer' + this.authservice.token});
-    let URL = URL_SERVICIOS + '/sliders/crear';
+    let URL = URL_SERVICIOS + '/cupones/crear';
     return this.http.post(URL, data, {headers: headers}).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );
   }
-
-  updateSlider(slider_id:any, data:any){
+  
+  updateCoupon(coupon_id:any, data:any){
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({'Authorization': 'Bearer' + this.authservice.token});
-    let URL = URL_SERVICIOS + '/sliders/actualizar/' + slider_id;
-    return this.http.post(URL, data, {headers: headers}).pipe(
+    let URL = URL_SERVICIOS + '/cupones/actualizar/' + coupon_id;
+    return this.http.put(URL, data, {headers: headers}).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );
   }
 
-  deleteSlider(slider_id:any){
+  deleteCoupon(coupon_id:any){
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({'Authorization': 'Bearer' + this.authservice.token});
-    let URL = URL_SERVICIOS + '/sliders/eliminar/' + slider_id;
+    let URL = URL_SERVICIOS + '/cupones/eliminar/' + coupon_id;
     return this.http.delete(URL, {headers: headers}).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
+
+  showCoupon(coupon_id:any){
+    this.isLoadingSubject.next(true);
+    let headers = new HttpHeaders({'Authorization': 'Bearer' + this.authservice.token});
+    let URL = URL_SERVICIOS + '/cupones/ver/' + coupon_id;
+    return this.http.get(URL, {headers: headers}).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );
   }

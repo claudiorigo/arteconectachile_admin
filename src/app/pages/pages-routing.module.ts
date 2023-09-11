@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from './_layout/layout.component';
+import { CouponsModule } from '../modules/coupons/coupons.module';
 
 const routes: Routes = [
   {
@@ -86,6 +87,13 @@ const routes: Routes = [
         loadChildren: () =>
           import('../modules/sliders/sliders.module').then(
             (m) => m.SlidersModule
+          ),
+      },
+      {
+        path: 'cupones',
+        loadChildren: () =>
+          import('../modules/coupons/coupons.module').then(
+            (m) => m.CouponsModule
           ),
       },
       {
