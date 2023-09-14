@@ -56,7 +56,7 @@ export class ListCouponsComponent implements OnInit {
     } else {
       return 'Categoría';
     }
-  }  
+  }
 
   deleteCupon(cupon){
     const modalRef = this.modelService.open(DeleteNewCouponComponent, {centered: true, size: 'md'});
@@ -66,6 +66,6 @@ export class ListCouponsComponent implements OnInit {
       let INDEX = this.cupones.findIndex(cupon => cupon.id == resp.id);
       this.cupones.splice(INDEX, 1);
     });
-  }  
+  }
 
 }

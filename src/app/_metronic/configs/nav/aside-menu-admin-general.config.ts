@@ -99,5 +99,25 @@ export const AsideMenuAdminGeneral = {
           }
         ]
       },
+      //      
+      {
+        title: 'Descuentos',
+        root: true,
+        name: "discount",
+        bullet: 'dot',
+        icon: 'flaticon2-user-outline-symbol',
+        svg: './assets/media/svg/icons/Shopping/Dollar.svg',
+        page: '/descuentos',
+        submenu: [
+          {
+            title: 'Registrar Descuento',
+            page: '/descuentos/registrar-descuento'
+          },
+          {
+            title: 'Listar Descuento',
+            page: '/descuentos/listar-descuento'
+          }
+        ]
+      },
     ]
 }
